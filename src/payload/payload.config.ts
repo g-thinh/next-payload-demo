@@ -1,13 +1,16 @@
 import path from "path";
 import { buildConfig } from "payload/config";
+import { Admins } from "./collections/admins";
 
 export default buildConfig({
-  collections: [
-    // Your collections here
-  ],
+  serverURL: process.env.PAYLOAD_PUBLIC_URL,
+  collections: [Admins],
   globals: [
     // Your globals here
   ],
+  admin: {
+    user: Admins.slug,
+  },
   email: {
     transportOptions: {
       host: process.env.SMTP_HOST,
@@ -22,6 +25,6 @@ export default buildConfig({
     fromAddress: process.env.SMTP_FROM_ADDRESS ?? "",
   },
   typescript: {
-    outputFile: path.resolve(__dirname, "../payload-types.ts"),
+    outputFile: path.resolve(__dirname, "../types/payload-types.ts"),
   },
 });
