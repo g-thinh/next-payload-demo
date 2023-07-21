@@ -1,5 +1,7 @@
 import { CollectionConfig } from "payload/dist/collections/config/types";
 import { Admin } from "src/types/payload-types";
+import { render } from "@react-email/render";
+import ForgotPasswordEmail from "src/emails/ForgotPasswordEmail";
 
 export const Admins: CollectionConfig = {
   slug: "admins",
@@ -21,22 +23,15 @@ export const Admins: CollectionConfig = {
     tokenExpiration: 7200,
 
     forgotPassword: {
+      generateEmailSubject: () => {
+        return "Looking to reset your password?";
+      },
       generateEmailHTML: (args) => {
         const user = args?.user as Partial<Admin>;
-        const resetPasswordURL = `http://localhost:3000/admin/reset/${args?.token}`;
-        return `
-            <!doctype html>
-            <html>
-              <body>
-                <h1>Here is my custom email template!</h1>
-                <p>Hello, ${user.name}!</p>
-                <p>Click below to reset your password.</p>
-                <p>
-                  <a href="${resetPasswordURL}">${resetPasswordURL}</a>
-                </p>
-              </body>
-            </html>
-          `;
+        const emailHTML = render(
+          ForgotPasswordEmail({ name: user.name, token: args?.token })
+        );
+        return emailHTML;
       },
     },
   },

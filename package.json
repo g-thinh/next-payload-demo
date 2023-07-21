@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "email:dev": "email dev --dir src/emails -p 3030",
     "generate:types": "PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts payload generate:types",
     "lint": "next lint"
   },
   "dependencies": {
     "@payloadcms/next-payload": "^0.0.31",
+    "@react-email/components": "0.0.7",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
@@ -22,6 +24,7 @@
     "postcss": "8.4.26",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-email": "1.9.4",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
   }
